@@ -59,6 +59,7 @@ const ProgressiveProfiling = (props) => {
     ensureAuthenticatedUser(DASHBOARD_URL)
       .then(() => {
         hydrateAuthenticatedUser().then(() => {
+          identifyAuthenticatedUser(authenticatedUser?.userId);
           setReady(true);
         });
       })
@@ -66,15 +67,9 @@ const ProgressiveProfiling = (props) => {
 
     if (registrationResponse) {
       setRegistrationResult(registrationResponse);
-    }
-  }, [DASHBOARD_URL, registrationResponse]);
-
-  useEffect(() => {
-    if (registrationResponse && authenticatedUser?.userId) {
-      identifyAuthenticatedUser(authenticatedUser.userId);
       sendPageEvent('login_and_registration', 'welcome');
     }
-  }, [authenticatedUser, registrationResponse]);
+  }, [authenticatedUser, DASHBOARD_URL, registrationResponse]);
 
   useEffect(() => {
     if (registrationResponse && authenticatedUser?.userId) {

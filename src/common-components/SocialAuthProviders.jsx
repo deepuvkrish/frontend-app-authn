@@ -21,7 +21,9 @@ const SocialAuthProviders = (props) => {
     }
 
     const url = e.currentTarget.dataset.providerUrl;
-    window.location.href = getConfig().LMS_BASE_URL + url;
+    window.location = {
+      href: getConfig().LMS_BASE_URL + url,
+    };
   }
 
   const socialAuth = socialAuthProviders.map((provider, index) => (

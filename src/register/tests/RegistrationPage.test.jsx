@@ -22,7 +22,7 @@ import {
   setUserPipelineDataLoaded,
 } from '../data/actions';
 import {
-  FIELDS, FORBIDDEN_REQUEST, INTERNAL_SERVER_ERROR, TPA_SESSION_EXPIRED,
+  FIELDS, FORBIDDEN_REQUEST, INTERNAL_SERVER_ERROR, TPA_AUTHENTICATION_FAILURE, TPA_SESSION_EXPIRED,
 } from '../data/constants';
 import * as utils from '../data/utils';
 import RegistrationFailureMessage from '../RegistrationFailure';
@@ -480,6 +480,21 @@ describe('RegistrationPage', () => {
       const registrationPage = mount(reduxWrapper(<IntlRegistrationFailure {...props} />));
       expect(registrationPage.find('div.alert-heading').length).toEqual(1);
       expect(registrationPage.find('div.alert').first().text()).toEqual(expectedMessage);
+    });
+
+    it('should match tpa authentication failed error message', () => {
+      const expectedMessageSubstring = 'We are sorry, you are not authorized to access';
+      props = {
+        context: {
+          provider: 'Google',
+        },
+        errorCode: TPA_AUTHENTICATION_FAILURE,
+        failureCount: 0,
+      };
+
+      const registrationPage = mount(reduxWrapper(<IntlRegistrationFailure {...props} />));
+      expect(registrationPage.find('div.alert-heading').length).toEqual(1);
+      expect(registrationPage.find('div.alert').first().text()).toContain(expectedMessageSubstring);
     });
 
     // ******** test form buttons and fields ********
@@ -1235,6 +1250,35 @@ describe('RegistrationPage', () => {
       expect(registrationPage.find('#tpa-spinner').exists()).toBeFalsy();
       expect(registrationPage.find('#registration-form').exists()).toBeTruthy();
       expect(localStorage.getItem('tpaHintedAuthentication')).toEqual(null);
+    });
+
+    it('should display errorMessage if third party authentication fails', () => {
+      jest.spyOn(global.Date, 'now').mockImplementation(() => 0);
+      getLocale.mockImplementation(() => ('en-us'));
+
+      store = mockStore({
+        ...initialState,
+        register: {
+          ...initialState.register,
+          backendCountryCode: 'PK',
+          userPipelineDataLoaded: false,
+        },
+        commonComponents: {
+          ...initialState.commonComponents,
+          thirdPartyAuthContext: {
+            ...initialState.commonComponents.thirdPartyAuthContext,
+            currentProvider: null,
+            pipelineUserDetails: {},
+            errorMessage: 'An error occured',
+          },
+        },
+      });
+
+      store.dispatch = jest.fn(store.dispatch);
+
+      const registrationPage = mount(reduxWrapper(<IntlRegistrationPage {...props} />));
+      expect(registrationPage.find('div.alert-heading').length).toEqual(1);
+      expect(registrationPage.find('div.alert').first().text()).toContain('An error occured');
     });
   });
 });

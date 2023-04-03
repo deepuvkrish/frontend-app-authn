@@ -41,6 +41,7 @@ import {
   COUNTRY_DISPLAY_KEY,
   FIELDS,
   FORM_SUBMISSION_ERROR,
+  TPA_AUTHENTICATION_FAILURE,
 } from './data/constants';
 import { registrationErrorSelector, validationsSelector } from './data/selectors';
 import {
@@ -132,6 +133,7 @@ const RegistrationPage = (props) => {
       if (errorMessage) {
         localStorage.removeItem('tpaHintedAuthentication');
         setAutoSubmitRegisterForm(false);
+        setErrorCode(prevState => ({ type: TPA_AUTHENTICATION_FAILURE, count: prevState.count + 1 }));
       } else if (autoSubmitRegForm) {
         checkTOSandHonorCodeFields();
       }
@@ -538,7 +540,7 @@ const RegistrationPage = (props) => {
             <RegistrationFailure
               errorCode={errorCode.type}
               failureCount={errorCode.count}
-              context={{ provider: currentProvider }}
+              context={{ provider: currentProvider, errorMessage: thirdPartyAuthContext.errorMessage }}
             />
             <Form id="registration-form" name="registration-form">
               <FormGroup

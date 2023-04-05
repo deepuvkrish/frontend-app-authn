@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   'forgot.password': {
     id: 'forgot.password',
-    defaultMessage: 'Forgot password',
+    defaultMessage: 'Forgot password ?',
     description: 'Button text for forgot password',
   },
   'institution.login.button': {

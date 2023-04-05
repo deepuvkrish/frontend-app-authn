@@ -8,6 +8,9 @@
 // ----------------------------
 $font-blue: #126f9a;
 $white: #FFFFFF;
+$color_1: #223254;
+$border-color_1: #506EEC;
+
 
 // social platforms
 $facebook-blue: #1877F2;
@@ -596,4 +599,197 @@ select.form-control {
 
 .pgn__form-control-decorator-trailing {
   right: 0 !important;
+}
+
+
+//Custom styles
+
+.cbx{
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    span {
+        display: inline-block;
+        vertical-align: middle;
+        transform: translate3d(0, 0, 0);
+        &:first-child {
+          position: relative;
+          width: 18px;
+          height: 18px;
+          border-radius: 3px;
+          transform: scale(1);
+          vertical-align: middle;
+          border: 1px solid #9098A9;
+          transition: all 0.2s ease;
+          svg{
+            position: absolute;
+            top:3px;
+            left: 2px;
+            fill: none;
+            stroke: #FFFFFF;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 16px;
+            stroke-dashoffset: 16px;
+            transition: all 0.3s ease;
+            transition-delay: 0.1s;
+            transform: translate3d(0,0,0);
+          }
+          &:before {
+            content: "";
+            width:100%;
+            height: 100%;
+            background: #506EEC;
+            display:block;
+            transform: scale(0);
+            opacity: 1;
+            border-radius: 50%;
+          }
+        }
+        &:last-child{
+          padding-left:8px;
+        }
+    }
+    &:hover{
+      span{
+        &:first-child{
+          border-color: $border-color_1;
+        }
+      }
+    }
+}
+.inp-cbx{
+  &:checked{
+    +{
+      .cbx{
+        font-size: 15px;
+        font-weight: bold;
+        
+        span{
+          &:first-child{
+            background: #506EEC;
+            border-color: $border-color_1;
+            animation: wave 0.4s ease;
+            svg{
+              stroke-dashoffset: 0;
+            }
+            &:before{
+              transform: scale(3.5);
+              opacity:0;
+              transition: all 0.6s ease;
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.chbx{
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  span {
+      display: inline-block;
+      vertical-align: middle;
+      transform: translate3d(0, 0, 0);
+      &:first-child {
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border-radius: 3px;
+        transform: scale(1);
+        vertical-align: middle;
+        border: 1px solid #9098A9;
+        transition: all 0.2s ease;
+        svg{
+          position: absolute;
+          top:3px;
+          left: 2px;
+          fill: none;
+          stroke: #FFFFFF;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-dasharray: 16px;
+          stroke-dashoffset: 16px;
+          transition: all 0.3s ease;
+          transition-delay: 0.1s;
+          transform: translate3d(0,0,0);
+        }
+        &:before {
+          content: "";
+          width:100%;
+          height: 100%;
+          background: #506EEC;
+          display:block;
+          transform: scale(0);
+          opacity: 1;
+          border-radius: 50%;
+        }
+      }
+      &:last-child{
+        padding-left:8px;
+      }
+  }
+  &:hover{
+    span{
+      &:first-child{
+        border-color: $border-color_1;
+      }
+    }
+  }
+}
+.inp-chbx{
+&:checked{
+  +{
+    .chbx{
+      font-size: 15px;
+      font-weight: bold;
+      
+      span{
+        &:first-child{
+          background: #506EEC;
+          border-color: $border-color_1;
+          animation: wave 0.4s ease;
+          svg{
+            stroke-dashoffset: 0;
+          }
+          &:before{
+            transform: scale(3.5);
+            opacity:0;
+            transition: all 0.6s ease;
+
+          }
+        }
+      }
+    }
+  }
+}
+}
+
+.cust_btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  color: #454545;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding-top: 0.5625rem;
+  font-size: 17px;
+  line-height: 1.3333;
+  border-radius: 0.375rem;
 }

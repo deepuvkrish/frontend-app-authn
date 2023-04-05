@@ -2,7 +2,9 @@ import React, {
   useEffect, useMemo, useState,
 } from 'react';
 import { connect } from 'react-redux';
-
+import {
+  Hyperlink, Icon, Image
+} from '@edx/paragon';
 import { getConfig, snakeCaseObject } from '@edx/frontend-platform';
 import { sendPageEvent } from '@edx/frontend-platform/analytics';
 import {
@@ -12,6 +14,7 @@ import { Form, Spinner, StatefulButton } from '@edx/paragon';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router-dom';
 
 import {
   FormGroup, InstitutionLogistration, PasswordField, RedirectLogistration, ThirdPartyAuthAlert,
@@ -22,10 +25,16 @@ import {
 } from '../common-components/data/selectors';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import {
-  DEFAULT_STATE, INVALID_NAME_REGEX, LETTER_REGEX, NUMBER_REGEX, PENDING_STATE, REGISTER_PAGE, VALID_EMAIL_REGEX,
+  DEFAULT_STATE, INVALID_NAME_REGEX, LETTER_REGEX, NUMBER_REGEX, PENDING_STATE, REGISTER_PAGE, VALID_EMAIL_REGEX,LOGIN_PAGE
 } from '../data/constants';
 import {
-  getAllPossibleQueryParams, getTpaHint, getTpaProvider, setCookie, setSurveyCookie,
+  getAllPossibleQueryParams, 
+  getTpaHint, 
+  getTpaProvider, 
+  setCookie, 
+  setSurveyCookie,
+  updatePathWithQueryParams,
+
 } from '../data/utils';
 import ConfigurableRegistrationForm from './ConfigurableRegistrationForm';
 import {
@@ -540,6 +549,16 @@ const RegistrationPage = (props) => {
               failureCount={errorCode.count}
               context={{ provider: currentProvider }}
             />
+
+            <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
+               <Image className="logos " alt={getConfig().SITE_NAME} src="https://mycloud.skillassure.com/static/images/logo.64c768235db0.png" style={{height:"50px",width:"200px"}}/>
+            </Hyperlink>
+            <h1>Hello !</h1>
+            <h3>Create An Account</h3>
+
+
+
+
             <Form id="registration-form" name="registration-form">
               <FormGroup
                 name="name"
@@ -551,6 +570,23 @@ const RegistrationPage = (props) => {
                 helpText={[formatMessage(messages['help.text.name'])]}
                 floatingLabel={formatMessage(messages['registration.fullname.label'])}
               />
+              <h5>Public UserName</h5>
+               <UsernameField
+                 name="username"
+                 spellCheck="false"
+                 value={formFields.username}
+                 handleBlur={handleOnBlur}
+                 handleChange={handleOnChange}
+                 handleFocus={handleOnFocus}
+                 handleSuggestionClick={handleSuggestionClick}
+                 handleUsernameSuggestionClose={handleUsernameSuggestionClosed}
+                 usernameSuggestions={usernameSuggestions}
+                 errorMessage={errors.username}
+                 helpText={[formatMessage(messages['help.text.username.1']), formatMessage(messages['help.text.username.2'])]}
+                 floatingLabel={formatMessage(messages['registration.username.label'])}
+               />
+      
+               <h5>Email ID</h5>
               <EmailField
                 name="email"
                 value={formFields.email}
@@ -564,20 +600,9 @@ const RegistrationPage = (props) => {
                 helpText={[formatMessage(messages['help.text.email'])]}
                 floatingLabel={formatMessage(messages['registration.email.label'])}
               />
-              <UsernameField
-                name="username"
-                spellCheck="false"
-                value={formFields.username}
-                handleBlur={handleOnBlur}
-                handleChange={handleOnChange}
-                handleFocus={handleOnFocus}
-                handleSuggestionClick={handleSuggestionClick}
-                handleUsernameSuggestionClose={handleUsernameSuggestionClosed}
-                usernameSuggestions={usernameSuggestions}
-                errorMessage={errors.username}
-                helpText={[formatMessage(messages['help.text.username.1']), formatMessage(messages['help.text.username.2'])]}
-                floatingLabel={formatMessage(messages['registration.username.label'])}
-              />
+
+
+              <h5>Password</h5>
               {!currentProvider && (
                 <PasswordField
                   name="password"
@@ -599,12 +624,26 @@ const RegistrationPage = (props) => {
                 setFocusedField={setFocusedField}
                 fieldDescriptions={fieldDescriptions}
               />
+               <div>
+                  <input className="inp-cbx" id="cbx" type="checkbox" style={{display:"none"}} />
+                  <label className="cbx" for="cbx" style={{fontSize:"15px",fontWeight:"bold"}}> 
+                    <span>
+                      <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <span>By signing in, you agree to the Terms and Services and Privacy Policy</span>
+                  </label>
+                </div>
+
+
               <StatefulButton
                 id="register-user"
                 name="register-user"
                 type="submit"
                 variant="brand"
                 className="register-stateful-button-width mt-4 mb-4"
+                style={{minWidth:"100%",background:"linear-gradient(45deg,#14426f,#02d5d5)",borderColor:"dodgerblue"}}
                 state={submitState}
                 labels={{
                   default: formatMessage(messages['create.account.for.free.button']),
@@ -613,6 +652,26 @@ const RegistrationPage = (props) => {
                 onClick={handleSubmit}
                 onMouseDown={(e) => e.preventDefault()}
               />
+              
+              <div className="reg_link" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
+                
+              </div>
+
+
+              <div className="reg_link" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
+              <p style={{fontSize:"13px",fontWeight:"bolder"}}>Already have an Account ? </p>
+                  
+                  <Link
+                      id="register_page"
+                      name="register_page"
+                      to={updatePathWithQueryParams(LOGIN_PAGE)}
+                      style={{color:"dodgerblue",fontWeight:"bolder",marginLeft:"5px"}}
+                    >
+                      Log in
+                    </Link>
+                </div>
+             
+
               <ThirdPartyAuth
                 currentProvider={currentProvider}
                 providers={providers}

@@ -1,0 +1,42 @@
+name: Release CI
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 16
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Lint
+      run: npm run lint
+
+    - name: Test
+      run: npm run test
+
+    - name: Create Build
+      run: npm run compile-prod
+
+    - name: Run Coverage
+      uses: codecov/codecov-action@v2
+
+    - name: Release Package
+      env:
+        GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_NPM_TOKEN }}
+      run: npm run semantic-release

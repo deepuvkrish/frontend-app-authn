@@ -1,0 +1,26 @@
+{
+    "name": "@types/babel__helper-plugin-utils",
+    "version": "7.10.0",
+    "description": "TypeScript definitions for @babel/helper-plugin-utils",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "ExE Boss",
+            "url": "https://github.com/ExE-Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/babel__helper-plugin-utils"
+    },
+    "scripts": {},
+    "dependencies": {
+        "@types/babel__core": "*"
+    },
+    "typesPublisherContentHash": "cad8026a8d7d3c64a7ed33737123dc8612090812dada929860abc61ca67354dd",
+    "typeScriptVersion": "3.8"
+}

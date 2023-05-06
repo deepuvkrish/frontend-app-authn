@@ -22,6 +22,11 @@ const messages = defineMessages({
     defaultMessage: 'Sign in',
     description: 'Sign in button label that appears on login page',
   },
+  'single.sign.on.button': {
+    id: 'single.sign.on.button',
+    defaultMessage: 'Single Sign On',
+    description: 'Sign in button label that appears on login page',
+  },
   'forgot.password': {
     id: 'forgot.password',
     defaultMessage: 'Forgot password ?',

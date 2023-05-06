@@ -63,7 +63,7 @@ const Logistration = (props) => {
   };
 
   const tabTitle = (
-    <div className="d-flex">
+    <div className="">
       <Icon src={ChevronLeft} className="left-icon" />
       <span className="ml-2">
         {selectedPage === LOGIN_PAGE
@@ -80,7 +80,7 @@ const Logistration = (props) => {
 
   return (
     <BaseComponent>
-      <div>
+      <div className='mb-5'>
         {disablePublicAccountCreation
           ? (
             <>
@@ -102,15 +102,17 @@ const Logistration = (props) => {
             <div>
               {institutionLogin
                 ? (
-                  <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
-                    <Tab title={tabTitle} eventKey={selectedPage === LOGIN_PAGE ? LOGIN_PAGE : REGISTER_PAGE} />
-                  </Tabs>
+                  // <Tabs defaultActiveKey="" id="controlled-tab" onSelect={handleInstitutionLogin}>
+                  //   <Tab title={tabTitle} eventKey={selectedPage === LOGIN_PAGE ? LOGIN_PAGE : REGISTER_PAGE} />
+                  // </Tabs>
+                  <div></div>
                 )
                 : (!isValidTpaHint() && (
-                  <Tabs defaultActiveKey={selectedPage} id="controlled-tab" onSelect={handleOnSelect}>
-                    <Tab title={formatMessage(messages['logistration.register'])} eventKey={REGISTER_PAGE} />
-                    <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
-                  </Tabs>
+                  // <Tabs defaultActiveKey={selectedPage} id="controlled-tab" onSelect={handleOnSelect}>
+                  //   <Tab title={formatMessage(messages['logistration.register'])} eventKey={REGISTER_PAGE} />
+                  //   <Tab title={formatMessage(messages['logistration.sign.in'])} eventKey={LOGIN_PAGE} />
+                  // </Tabs>
+                  <div></div>
                 ))}
               { key && (
                 <Redirect to={updatePathWithQueryParams(key)} />

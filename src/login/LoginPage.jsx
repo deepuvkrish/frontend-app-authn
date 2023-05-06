@@ -5,13 +5,14 @@ import { getConfig } from '@edx/frontend-platform';
 import { sendPageEvent, sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { injectIntl } from '@edx/frontend-platform/i18n';
 import {
-  Form, Hyperlink, Icon, StatefulButton,Image
+  Form, Hyperlink, Icon, StatefulButton,Image,Button
 } from '@edx/paragon';
 import { Institution } from '@edx/paragon/icons';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
+import { ArrowBack } from '@edx/paragon/icons';
 
 import {
   FormGroup, InstitutionLogistration, PasswordField, RedirectLogistration,
@@ -138,7 +139,23 @@ class LoginPage extends React.Component {
     };
     this.props.setLoginFormData(payload);
   };
-
+  
+  handleSSO=() => {
+    document.querySelector('#signintxt').innerHTML= "Sign In With SkillAssure"
+    document.querySelector('#idtype').innerHTML="SkillAssure ID"
+    if(document.querySelector('#signle-sign-in').innerHTML=="Single Sign On"){
+      document.querySelector('#signintxt').innerHTML= "Sign In With SkillAssure"
+      document.querySelector('#idtype').innerHTML="SkillAssure ID"
+      document.querySelector('#signle-sign-in').innerHTML= "<svg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' role='img' focusable='false' aria-hidden='true'><path d='M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z' fill='currentColor'></path></svg>" + "Back"
+      
+    }
+    else{
+      document.querySelector('#signintxt').innerHTML= "Sign In To Your Account"
+      document.querySelector('#idtype').innerHTML="Email ID"
+      document.querySelector('#signle-sign-in').innerHTML="Single Sign On"  
+    }
+    
+  }; 
   handleForgotPasswordLinkClickEvent = () => {
     sendTrackEvent('edx.bi.password-reset_form.toggled', { category: 'user-engagement' });
   };
@@ -256,10 +273,10 @@ class LoginPage extends React.Component {
         <div className="mw-xs mt-3"> 
 
               <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-                  <Image className="logos " alt={getConfig().SITE_NAME} src="https://mycloud.skillassure.com/static/images/logo.64c768235db0.png" style={{height:"50px",width:"200px"}}/>
+                  <Image className="logos mb-2" alt={getConfig().SITE_NAME} src="https://mycloud.skillassure.com/static/images/logo.64c768235db0.png" style={{height:"50px",width:"200px"}}/>
               </Hyperlink>
               <h1>Hello !</h1>
-              <h3>Sign In To Your Account</h3>
+              <h3 id="signintxt">Sign In To Your Account</h3>
 
                 <ThirdPartyAuthAlert
                   currentProvider={thirdPartyAuthContext.currentProvider}
@@ -271,9 +288,8 @@ class LoginPage extends React.Component {
               {activationMsgType && <AccountActivationMessage messageType={activationMsgType} />}
               {this.props.resetPassword && !this.props.loginError ? <ResetPasswordSuccess /> : null}
 
-
-              <Form name="sign-in-form" id="sign-in-form">
-                <h5>Email ID</h5>
+              <Form classname="mt-3" name="sign-in-form" id="sign-in-form">
+                <h5 id="idtype">Email ID</h5>
                 <FormGroup
                   name="emailOrUsername"
                   value={this.state.emailOrUsername}
@@ -297,27 +313,13 @@ class LoginPage extends React.Component {
                   floatingLabel={intl.formatMessage(messages['login.password.label'])}
                 />
 
-                <div className="agreement">
-                  <div>
-                    <input className="inp-cbx" id="cbx" type="checkbox" style={{display:"none"}} />
-                    <label className="cbx" for="cbx" style={{fontSize:"15px",fontWeight:"bold"}}> 
-                      <span>
-                        <svg width="12px" height="10px" viewbox="0 0 12 10">
-                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                        </svg>
-                      </span>
-                      <span>By signing in, you agree to the Terms and Services and Privacy Policy</span>
-                    </label>
-                  </div>
-                </div>
-
                 <StatefulButton
                   name="sign-in"
                   id="sign-in"
                   type="submit"
                   variant="brand"
                   className="login-button-width"
-                  style={{minWidth:"100%",background:"linear-gradient(45deg,#14426f,#02d5d5)",borderColor:"dodgerblue"}}
+                  style={{minWidth:"99%",background:"linear-gradient(45deg,#14426f,#02d5d5)",borderColor:"dodgerblue"}}
                   state={submitState}
                   labels={{
                     default: intl.formatMessage(messages['sign.in.button']),
@@ -326,8 +328,21 @@ class LoginPage extends React.Component {
                   onClick={this.handleSubmit}
                   onMouseDown={(e) => e.preventDefault()}
                 />
-
-
+                
+                <Button
+                  variant="outline-primary"
+                  name="single-sign-in"
+                  id="signle-sign-in"
+                  className="login-button-width mt-4"
+                  style={{minWidth:"99%",borderColor:"dodgerblue", color:"#014384"}}
+                  labels={{
+                    default: intl.formatMessage(messages['single.sign.on.button']),
+                    pending: '',
+                  }}
+                  onClick={this.handleSSO}
+                  onMouseDown={(e) => e.preventDefault()}>
+                    {intl.formatMessage(messages['single.sign.on.button'])}
+                  </Button>
 
                 <div className="forgot_session" style={{display:"flex",flexDirection:"row",justifyContent:"space-between", alignItems:"baseline"}}>
                     <div>
@@ -357,7 +372,7 @@ class LoginPage extends React.Component {
                 </div>
 
 
-                <div className="reg_link" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
+                <div className="reg_link mt-2" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
                   <p style={{fontSize:"13px",fontWeight:"bolder"}}>Didn't have an account ? </p>
                   <Link
                       id="register_page"
@@ -371,10 +386,21 @@ class LoginPage extends React.Component {
                 </div>
 
 
-              
-                
-                  
+                <div className="agreement">
+                  <div>
+                    <input className="inp-cbx" id="cbx" type="checkbox" style={{display:"none"}} />
+                    <label className="cbx" for="cbx" style={{fontSize:"15px",fontWeight:"bold"}}> 
+                      <span>
+                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                        </svg>
+                      </span>
+                      <span>By signing in, you agree to the Terms and Services and Privacy Policy</span>
+                    </label>
+                  </div>
+                </div>
 
+                  
                 {this.renderThirdPartyAuth(providers, secondaryProviders, currentProvider, thirdPartyAuthApiStatus, intl)}
               </Form>
 

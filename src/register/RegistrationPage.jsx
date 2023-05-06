@@ -551,7 +551,7 @@ const RegistrationPage = (props) => {
             />
 
             <Hyperlink destination={getConfig().MARKETING_SITE_BASE_URL}>
-               <Image className="logos " alt={getConfig().SITE_NAME} src="https://mycloud.skillassure.com/static/images/logo.64c768235db0.png" style={{height:"50px",width:"200px"}}/>
+               <Image className="logos mb-2" alt={getConfig().SITE_NAME} src="https://mycloud.skillassure.com/static/images/logo.64c768235db0.png" style={{height:"50px",width:"200px"}}/>
             </Hyperlink>
             <h1>Hello !</h1>
             <h3>Create An Account</h3>
@@ -559,7 +559,8 @@ const RegistrationPage = (props) => {
 
 
 
-            <Form id="registration-form" name="registration-form">
+            <Form id="registration-form" className="mt-3" name="registration-form">
+              <h5>Full Name</h5>
               <FormGroup
                 name="name"
                 value={formFields.name}
@@ -624,25 +625,13 @@ const RegistrationPage = (props) => {
                 setFocusedField={setFocusedField}
                 fieldDescriptions={fieldDescriptions}
               />
-               <div>
-                  <input className="inp-cbx" id="cbx" type="checkbox" style={{display:"none"}} />
-                  <label className="cbx" for="cbx" style={{fontSize:"15px",fontWeight:"bold"}}> 
-                    <span>
-                      <svg width="12px" height="10px" viewbox="0 0 12 10">
-                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                      </svg>
-                    </span>
-                    <span>By signing in, you agree to the Terms and Services and Privacy Policy</span>
-                  </label>
-                </div>
-
-
+               
               <StatefulButton
                 id="register-user"
                 name="register-user"
                 type="submit"
                 variant="brand"
-                className="register-stateful-button-width mt-4 mb-4"
+                className="register-stateful-button-width mt-2 mb-3"
                 style={{minWidth:"100%",background:"linear-gradient(45deg,#14426f,#02d5d5)",borderColor:"dodgerblue"}}
                 state={submitState}
                 labels={{
@@ -652,13 +641,8 @@ const RegistrationPage = (props) => {
                 onClick={handleSubmit}
                 onMouseDown={(e) => e.preventDefault()}
               />
-              
-              <div className="reg_link" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
-                
-              </div>
 
-
-              <div className="reg_link" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
+              <div className="reg_link mt-0" style={{display:"flex",flexDirection:"row",alignItems:"baseline"}}>
               <p style={{fontSize:"13px",fontWeight:"bolder"}}>Already have an Account ? </p>
                   
                   <Link
@@ -667,11 +651,23 @@ const RegistrationPage = (props) => {
                       to={updatePathWithQueryParams(LOGIN_PAGE)}
                       style={{color:"dodgerblue",fontWeight:"bolder",marginLeft:"5px"}}
                     >
-                      Log in
+                      Sign in
                     </Link>
-                </div>
-             
+              </div>
 
+              <div>
+                  <input className="inp-cbx" id="cbx" type="checkbox" style={{display:"none"}} />
+                  <label className="cbx" for="cbx" style={{fontSize:"15px",fontWeight:"bold"}}> 
+                    <span>
+                      <svg width="12px" height="10px" viewbox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <span>By signing in, you agree to the Terms and Services and Privacy Policy</span>
+                  </label>
+              </div>
+              
+              
               <ThirdPartyAuth
                 currentProvider={currentProvider}
                 providers={providers}

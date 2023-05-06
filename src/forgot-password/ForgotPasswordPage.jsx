@@ -134,6 +134,7 @@ const ForgotPasswordPage = (props) => {
               type="submit"
               variant="brand"
               className="forgot-password-button-width"
+              style={{minWidth:"99%",background:"linear-gradient(45deg,#14426f,#02d5d5)",borderColor:"dodgerblue"}}
               state={submitState}
               labels={{
                 default: formatMessage(messages['forgot.password.page.submit.button']),

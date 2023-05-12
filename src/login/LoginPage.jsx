@@ -298,7 +298,6 @@ class LoginPage extends React.Component {
                   handleFocus={this.handleOnFocus}
                   handleBlur={this.handleOnBlur}
                   errorMessage={this.state.errors.emailOrUsername}
-                  floatingLabel={intl.formatMessage(messages['login.user.identity.label'])}
                 />
                 <h5>Password</h5>
                 <PasswordField
@@ -310,7 +309,6 @@ class LoginPage extends React.Component {
                   handleFocus={this.handleOnFocus}
                   handleBlur={this.handleOnBlur}
                   errorMessage={this.state.errors.password}
-                  floatingLabel={intl.formatMessage(messages['login.password.label'])}
                 />
 
                 <StatefulButton

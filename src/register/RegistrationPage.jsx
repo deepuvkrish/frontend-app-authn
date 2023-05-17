@@ -569,7 +569,6 @@ const RegistrationPage = (props) => {
                 handleFocus={handleOnFocus}
                 errorMessage={errors.name}
                 helpText={[formatMessage(messages['help.text.name'])]}
-                floatingLabel={formatMessage(messages['registration.fullname.label'])}
               />
               <h5>Public UserName</h5>
                <UsernameField
@@ -584,7 +583,6 @@ const RegistrationPage = (props) => {
                  usernameSuggestions={usernameSuggestions}
                  errorMessage={errors.username}
                  helpText={[formatMessage(messages['help.text.username.1']), formatMessage(messages['help.text.username.2'])]}
-                 floatingLabel={formatMessage(messages['registration.username.label'])}
                />
       
                <h5>Email ID</h5>
@@ -599,7 +597,6 @@ const RegistrationPage = (props) => {
                 emailSuggestion={emailSuggestion}
                 errorMessage={errors.email}
                 helpText={[formatMessage(messages['help.text.email'])]}
-                floatingLabel={formatMessage(messages['registration.email.label'])}
               />
 
 
@@ -612,7 +609,6 @@ const RegistrationPage = (props) => {
                   handleBlur={handleOnBlur}
                   handleFocus={handleOnFocus}
                   errorMessage={errors.password}
-                  floatingLabel={formatMessage(messages['registration.password.label'])}
                 />
               )}
               <ConfigurableRegistrationForm
